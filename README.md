@@ -5,6 +5,10 @@ jscep [![Build Status](https://travis-ci.org/jscep/jscep.svg?branch=master)](htt
 
 If you have a question about the jscep library, please send an email to jscep-support@googlegroups.com.
 
+## Jscep for Android
+
+This version of jscep is intented to run on Android devices. This was achieved simply by replacing all occurences of BouncyCastle by SpongyCastle. The original version of jscep is available at https://github.com/jscep/jscep.
+
 ## Constructing a Client
 
 
@@ -388,7 +392,7 @@ and using this configration file: https://github.com/jscep/jscep/blob/master/src
 Thanks to Ryan Schipper and Danny deSousa for contributions to this manual.
 
 # References
-
+* [Spongy Castle Homepage](https://rtyley.github.io/spongycastle/)
 * [Bouncy Castle PKIX and CMS Documentation](http://www.bouncycastle.org/docs/pkixdocs1.5on/index.html)
 * [Bouncy Castle Provider and Main Documentation](http://www.bouncycastle.org/docs/docs1.5on/index.html)
 * [Java 6 Security](http://docs.oracle.com/javase/6/docs/technotes/guides/security/)

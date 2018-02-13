@@ -1,23 +1,23 @@
 package org.jscep.util;
 
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.nullValue;
-import static org.junit.Assert.assertThat;
-
-import org.bouncycastle.asn1.ASN1Encodable;
-import org.bouncycastle.asn1.DERPrintableString;
-import org.bouncycastle.asn1.DERUTF8String;
-import org.bouncycastle.asn1.pkcs.PKCSObjectIdentifiers;
-import org.bouncycastle.asn1.x500.X500Name;
-import org.bouncycastle.asn1.x509.SubjectPublicKeyInfo;
-import org.bouncycastle.operator.ContentSigner;
-import org.bouncycastle.operator.jcajce.JcaContentSignerBuilder;
-import org.bouncycastle.pkcs.PKCS10CertificationRequest;
-import org.bouncycastle.pkcs.PKCS10CertificationRequestBuilder;
 import org.junit.Test;
+import org.spongycastle.asn1.ASN1Encodable;
+import org.spongycastle.asn1.DERPrintableString;
+import org.spongycastle.asn1.DERUTF8String;
+import org.spongycastle.asn1.pkcs.PKCSObjectIdentifiers;
+import org.spongycastle.asn1.x500.X500Name;
+import org.spongycastle.asn1.x509.SubjectPublicKeyInfo;
+import org.spongycastle.operator.ContentSigner;
+import org.spongycastle.operator.jcajce.JcaContentSignerBuilder;
+import org.spongycastle.pkcs.PKCS10CertificationRequest;
+import org.spongycastle.pkcs.PKCS10CertificationRequestBuilder;
 
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
+
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.nullValue;
+import static org.junit.Assert.assertThat;
 
 public class CertificationRequestUtilsTest {
     private PKCS10CertificationRequest getCsr(ASN1Encodable challengePassword)

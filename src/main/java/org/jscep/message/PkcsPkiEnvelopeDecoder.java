@@ -1,32 +1,27 @@
 package org.jscep.message;
 
-import static org.slf4j.LoggerFactory.getLogger;
-
-import java.io.InputStream;
-import java.security.GeneralSecurityException;
-import java.security.Key;
-import java.security.InvalidKeyException;
-import java.security.spec.AlgorithmParameterSpec;
-import java.security.PrivateKey;
-import java.security.cert.X509Certificate;
+import org.slf4j.Logger;
+import org.spongycastle.asn1.ASN1Encodable;
+import org.spongycastle.asn1.ASN1OctetString;
+import org.spongycastle.asn1.cms.EnvelopedData;
+import org.spongycastle.asn1.x509.AlgorithmIdentifier;
+import org.spongycastle.cms.*;
+import org.spongycastle.cms.jcajce.JceKeyTransEnvelopedRecipient;
+import org.spongycastle.cms.jcajce.JceKeyTransRecipientId;
+import org.spongycastle.operator.InputDecryptor;
 
 import javax.crypto.Cipher;
 import javax.crypto.CipherInputStream;
 import javax.crypto.spec.IvParameterSpec;
+import java.io.InputStream;
+import java.security.GeneralSecurityException;
+import java.security.InvalidKeyException;
+import java.security.Key;
+import java.security.PrivateKey;
+import java.security.cert.X509Certificate;
+import java.security.spec.AlgorithmParameterSpec;
 
-import org.bouncycastle.asn1.ASN1Encodable;
-import org.bouncycastle.asn1.ASN1OctetString;
-import org.bouncycastle.asn1.cms.EnvelopedData;
-import org.bouncycastle.asn1.x509.AlgorithmIdentifier;
-import org.bouncycastle.cms.CMSEnvelopedData;
-import org.bouncycastle.cms.CMSException;
-import org.bouncycastle.cms.RecipientInformation;
-import org.bouncycastle.cms.RecipientInformationStore;
-import org.bouncycastle.cms.RecipientOperator;
-import org.bouncycastle.cms.jcajce.JceKeyTransEnvelopedRecipient;
-import org.bouncycastle.cms.jcajce.JceKeyTransRecipientId;
-import org.bouncycastle.operator.InputDecryptor;
-import org.slf4j.Logger;
+import static org.slf4j.LoggerFactory.getLogger;
 
 /**
  * This class is used to decrypt the <tt>pkcsPkiEnvelope</tt> of a SCEP secure

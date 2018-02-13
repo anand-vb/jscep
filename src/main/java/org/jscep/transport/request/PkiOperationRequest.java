@@ -1,9 +1,9 @@
 package org.jscep.transport.request;
 
-import java.io.IOException;
-
 import org.apache.commons.codec.binary.Base64;
-import org.bouncycastle.cms.CMSSignedData;
+import org.spongycastle.cms.CMSSignedData;
+
+import java.io.IOException;
 
 /**
  * The <tt>PkiOperationRequest</tt> class may represent a <tt>PKCSReq</tt>,

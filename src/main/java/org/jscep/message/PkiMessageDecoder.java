@@ -1,7 +1,24 @@
 package org.jscep.message;
 
-import static org.jscep.asn1.ScepObjectIdentifier.*;
-import static org.slf4j.LoggerFactory.getLogger;
+import org.jscep.asn1.IssuerAndSubject;
+import org.jscep.asn1.ScepObjectIdentifier;
+import org.jscep.transaction.*;
+import org.slf4j.Logger;
+import org.spongycastle.asn1.ASN1ObjectIdentifier;
+import org.spongycastle.asn1.DERObjectIdentifier;
+import org.spongycastle.asn1.DEROctetString;
+import org.spongycastle.asn1.DERPrintableString;
+import org.spongycastle.asn1.cms.Attribute;
+import org.spongycastle.asn1.cms.IssuerAndSerialNumber;
+import org.spongycastle.asn1.cms.SignedData;
+import org.spongycastle.cert.X509CertificateHolder;
+import org.spongycastle.cms.*;
+import org.spongycastle.cms.jcajce.JcaSignerId;
+import org.spongycastle.cms.jcajce.JcaSimpleSignerInfoVerifierBuilder;
+import org.spongycastle.operator.OperatorCreationException;
+import org.spongycastle.pkcs.PKCS10CertificationRequest;
+import org.spongycastle.util.Store;
+import org.spongycastle.util.StoreException;
 
 import java.io.IOException;
 import java.security.cert.CertificateException;
@@ -10,35 +27,8 @@ import java.util.Collection;
 import java.util.Hashtable;
 import java.util.Map.Entry;
 
-import org.bouncycastle.asn1.ASN1ObjectIdentifier;
-import org.bouncycastle.asn1.DERObjectIdentifier;
-import org.bouncycastle.asn1.DEROctetString;
-import org.bouncycastle.asn1.DERPrintableString;
-import org.bouncycastle.asn1.cms.Attribute;
-import org.bouncycastle.asn1.cms.IssuerAndSerialNumber;
-import org.bouncycastle.asn1.cms.SignedData;
-import org.bouncycastle.cert.X509CertificateHolder;
-import org.bouncycastle.cms.CMSEnvelopedData;
-import org.bouncycastle.cms.CMSException;
-import org.bouncycastle.cms.CMSProcessable;
-import org.bouncycastle.cms.CMSSignedData;
-import org.bouncycastle.cms.SignerInformation;
-import org.bouncycastle.cms.SignerInformationStore;
-import org.bouncycastle.cms.SignerInformationVerifier;
-import org.bouncycastle.cms.jcajce.JcaSignerId;
-import org.bouncycastle.cms.jcajce.JcaSimpleSignerInfoVerifierBuilder;
-import org.bouncycastle.operator.OperatorCreationException;
-import org.bouncycastle.pkcs.PKCS10CertificationRequest;
-import org.bouncycastle.util.Store;
-import org.bouncycastle.util.StoreException;
-import org.jscep.asn1.IssuerAndSubject;
-import org.jscep.asn1.ScepObjectIdentifier;
-import org.jscep.transaction.FailInfo;
-import org.jscep.transaction.MessageType;
-import org.jscep.transaction.Nonce;
-import org.jscep.transaction.PkiStatus;
-import org.jscep.transaction.TransactionId;
-import org.slf4j.Logger;
+import static org.jscep.asn1.ScepObjectIdentifier.*;
+import static org.slf4j.LoggerFactory.getLogger;
 
 /**
  * This class is used to decode a PKCS #7 signedData object into a

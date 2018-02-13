@@ -22,8 +22,8 @@
  */
 package org.jscep.transport.response;
 
-import org.bouncycastle.cms.CMSException;
-import org.bouncycastle.cms.CMSSignedData;
+import org.spongycastle.cms.CMSException;
+import org.spongycastle.cms.CMSSignedData;
 
 /**
  * This class handles responses to <tt>PKCSReq</tt>, <tt>GetCertInitial</tt>,

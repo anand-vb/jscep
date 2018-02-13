@@ -22,12 +22,8 @@
  */
 package org.jscep.message;
 
-import org.bouncycastle.cms.CMSSignedData;
-import org.jscep.transaction.FailInfo;
-import org.jscep.transaction.MessageType;
-import org.jscep.transaction.Nonce;
-import org.jscep.transaction.PkiStatus;
-import org.jscep.transaction.TransactionId;
+import org.jscep.transaction.*;
+import org.spongycastle.cms.CMSSignedData;
 
 /**
  * This class represents a <tt>CertRep</tt> <tt>pkiMessage</tt>.

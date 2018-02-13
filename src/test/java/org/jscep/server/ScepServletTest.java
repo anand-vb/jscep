@@ -1,38 +1,5 @@
 package org.jscep.server;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-
-import java.io.IOException;
-import java.math.BigInteger;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.security.GeneralSecurityException;
-import java.security.KeyPair;
-import java.security.KeyPairGenerator;
-import java.security.PrivateKey;
-import java.security.PublicKey;
-import java.security.cert.CertStore;
-import java.security.cert.Certificate;
-import java.security.cert.X509Certificate;
-import java.util.Calendar;
-import java.util.Collection;
-import java.util.Date;
-import java.util.GregorianCalendar;
-
-import org.bouncycastle.asn1.DERPrintableString;
-import org.bouncycastle.asn1.cms.IssuerAndSerialNumber;
-import org.bouncycastle.asn1.pkcs.PKCSObjectIdentifiers;
-import org.bouncycastle.asn1.x500.X500Name;
-import org.bouncycastle.asn1.x509.SubjectPublicKeyInfo;
-import org.bouncycastle.cert.X509CertificateHolder;
-import org.bouncycastle.cert.jcajce.JcaX509CertificateConverter;
-import org.bouncycastle.cert.jcajce.JcaX509v1CertificateBuilder;
-import org.bouncycastle.operator.ContentSigner;
-import org.bouncycastle.operator.OperatorCreationException;
-import org.bouncycastle.operator.jcajce.JcaContentSignerBuilder;
-import org.bouncycastle.pkcs.PKCS10CertificationRequest;
-import org.bouncycastle.pkcs.PKCS10CertificationRequestBuilder;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletHandler;
 import org.jscep.asn1.IssuerAndSubject;
@@ -40,11 +7,7 @@ import org.jscep.message.PkcsPkiEnvelopeDecoder;
 import org.jscep.message.PkcsPkiEnvelopeEncoder;
 import org.jscep.message.PkiMessageDecoder;
 import org.jscep.message.PkiMessageEncoder;
-import org.jscep.transaction.EnrollmentTransaction;
-import org.jscep.transaction.FailInfo;
-import org.jscep.transaction.MessageType;
-import org.jscep.transaction.NonEnrollmentTransaction;
-import org.jscep.transaction.Transaction;
+import org.jscep.transaction.*;
 import org.jscep.transaction.Transaction.State;
 import org.jscep.transport.Transport;
 import org.jscep.transport.TransportException;
@@ -62,6 +25,35 @@ import org.jscep.util.X500Utils;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.spongycastle.asn1.DERPrintableString;
+import org.spongycastle.asn1.cms.IssuerAndSerialNumber;
+import org.spongycastle.asn1.pkcs.PKCSObjectIdentifiers;
+import org.spongycastle.asn1.x500.X500Name;
+import org.spongycastle.asn1.x509.SubjectPublicKeyInfo;
+import org.spongycastle.cert.X509CertificateHolder;
+import org.spongycastle.cert.jcajce.JcaX509CertificateConverter;
+import org.spongycastle.cert.jcajce.JcaX509v1CertificateBuilder;
+import org.spongycastle.operator.ContentSigner;
+import org.spongycastle.operator.OperatorCreationException;
+import org.spongycastle.operator.jcajce.JcaContentSignerBuilder;
+import org.spongycastle.pkcs.PKCS10CertificationRequest;
+import org.spongycastle.pkcs.PKCS10CertificationRequestBuilder;
+
+import java.io.IOException;
+import java.math.BigInteger;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.security.*;
+import java.security.cert.CertStore;
+import java.security.cert.Certificate;
+import java.security.cert.X509Certificate;
+import java.util.Calendar;
+import java.util.Collection;
+import java.util.Date;
+import java.util.GregorianCalendar;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 
 public class ScepServletTest {
     private static String PATH = "/scep/pkiclient.exe";

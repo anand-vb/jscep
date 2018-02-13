@@ -21,10 +21,10 @@
  */
 package org.jscep.message;
 
-import org.bouncycastle.asn1.cms.IssuerAndSerialNumber;
 import org.jscep.transaction.MessageType;
 import org.jscep.transaction.Nonce;
 import org.jscep.transaction.TransactionId;
+import org.spongycastle.asn1.cms.IssuerAndSerialNumber;
 
 /**
  * This class represents a <tt>GetCert</tt> <tt>pkiMessage</tt>, which wraps an

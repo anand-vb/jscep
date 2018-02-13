@@ -1,10 +1,10 @@
 package org.jscep.asn1;
 
-import org.bouncycastle.asn1.DERSequence;
-import org.bouncycastle.asn1.x500.X500Name;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.spongycastle.asn1.DERSequence;
+import org.spongycastle.asn1.x500.X500Name;
 
 public class IssuerAndSubjectTest {
     private IssuerAndSubject fixture;

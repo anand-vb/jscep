@@ -1,37 +1,22 @@
 package org.jscep.util;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.spongycastle.cert.X509CRLHolder;
+import org.spongycastle.cert.X509CertificateHolder;
+import org.spongycastle.cms.*;
+import org.spongycastle.cms.jcajce.JcaSignerId;
+import org.spongycastle.operator.*;
+import org.spongycastle.operator.jcajce.JcaContentVerifierProviderBuilder;
+import org.spongycastle.operator.jcajce.JcaDigestCalculatorProviderBuilder;
+import org.spongycastle.util.Store;
+
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
-import java.security.cert.CRLException;
-import java.security.cert.CertStore;
-import java.security.cert.CertificateException;
-import java.security.cert.CertificateFactory;
-import java.security.cert.CollectionCertStoreParameters;
-import java.security.cert.X509Certificate;
+import java.security.cert.*;
 import java.util.ArrayList;
 import java.util.Collection;
-
-import org.bouncycastle.cert.X509CRLHolder;
-import org.bouncycastle.cert.X509CertificateHolder;
-import org.bouncycastle.cms.CMSException;
-import org.bouncycastle.cms.CMSSignatureAlgorithmNameGenerator;
-import org.bouncycastle.cms.CMSSignedData;
-import org.bouncycastle.cms.DefaultCMSSignatureAlgorithmNameGenerator;
-import org.bouncycastle.cms.SignerInformation;
-import org.bouncycastle.cms.SignerInformationStore;
-import org.bouncycastle.cms.SignerInformationVerifier;
-import org.bouncycastle.cms.jcajce.JcaSignerId;
-import org.bouncycastle.operator.ContentVerifierProvider;
-import org.bouncycastle.operator.DefaultSignatureAlgorithmIdentifierFinder;
-import org.bouncycastle.operator.DigestCalculatorProvider;
-import org.bouncycastle.operator.OperatorCreationException;
-import org.bouncycastle.operator.SignatureAlgorithmIdentifierFinder;
-import org.bouncycastle.operator.jcajce.JcaContentVerifierProviderBuilder;
-import org.bouncycastle.operator.jcajce.JcaDigestCalculatorProviderBuilder;
-import org.bouncycastle.util.Store;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * This class contains utility methods for manipulating SignedData objects.

@@ -23,64 +23,43 @@
 
 package org.jscep.server;
 
+import org.apache.commons.io.IOUtils;
+import org.jscep.asn1.IssuerAndSubject;
+import org.jscep.message.*;
+import org.jscep.transaction.*;
+import org.jscep.transport.request.Operation;
+import org.jscep.transport.response.Capability;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.spongycastle.asn1.cms.IssuerAndSerialNumber;
+import org.spongycastle.asn1.x500.X500Name;
+import org.spongycastle.cert.X509CertificateHolder;
+import org.spongycastle.cert.jcajce.JcaCRLStore;
+import org.spongycastle.cert.jcajce.JcaCertStore;
+import org.spongycastle.cms.*;
+import org.spongycastle.operator.ContentSigner;
+import org.spongycastle.operator.DigestCalculatorProvider;
+import org.spongycastle.operator.jcajce.JcaContentSignerBuilder;
+import org.spongycastle.operator.jcajce.JcaDigestCalculatorProviderBuilder;
+import org.spongycastle.pkcs.PKCS10CertificationRequest;
+import org.spongycastle.util.Store;
+import org.spongycastle.util.encoders.Base64;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.Writer;
 import java.math.BigInteger;
 import java.security.GeneralSecurityException;
 import java.security.PrivateKey;
-import java.security.cert.CertificateEncodingException;
-import java.security.cert.CertificateException;
-import java.security.cert.CertificateFactory;
-import java.security.cert.X509CRL;
-import java.security.cert.X509Certificate;
+import java.security.cert.*;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.commons.io.IOUtils;
-import org.bouncycastle.asn1.cms.IssuerAndSerialNumber;
-import org.bouncycastle.asn1.x500.X500Name;
-import org.bouncycastle.cert.X509CertificateHolder;
-import org.bouncycastle.cert.jcajce.JcaCRLStore;
-import org.bouncycastle.cert.jcajce.JcaCertStore;
-import org.bouncycastle.cms.CMSAbsentContent;
-import org.bouncycastle.cms.CMSException;
-import org.bouncycastle.cms.CMSSignedData;
-import org.bouncycastle.cms.CMSSignedDataGenerator;
-import org.bouncycastle.cms.SignerInfoGenerator;
-import org.bouncycastle.cms.SignerInfoGeneratorBuilder;
-import org.bouncycastle.operator.ContentSigner;
-import org.bouncycastle.operator.DigestCalculatorProvider;
-import org.bouncycastle.operator.jcajce.JcaContentSignerBuilder;
-import org.bouncycastle.operator.jcajce.JcaDigestCalculatorProviderBuilder;
-import org.bouncycastle.pkcs.PKCS10CertificationRequest;
-import org.bouncycastle.util.Store;
-import org.bouncycastle.util.encoders.Base64;
-import org.jscep.asn1.IssuerAndSubject;
-import org.jscep.message.CertRep;
-import org.jscep.message.MessageDecodingException;
-import org.jscep.message.MessageEncodingException;
-import org.jscep.message.PkcsPkiEnvelopeDecoder;
-import org.jscep.message.PkcsPkiEnvelopeEncoder;
-import org.jscep.message.PkiMessage;
-import org.jscep.message.PkiMessageDecoder;
-import org.jscep.message.PkiMessageEncoder;
-import org.jscep.transaction.FailInfo;
-import org.jscep.transaction.MessageType;
-import org.jscep.transaction.Nonce;
-import org.jscep.transaction.OperationFailureException;
-import org.jscep.transaction.TransactionId;
-import org.jscep.transport.request.Operation;
-import org.jscep.transport.response.Capability;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * This class provides a base Servlet which can be extended using the abstract

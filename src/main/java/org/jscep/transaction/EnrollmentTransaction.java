@@ -1,28 +1,19 @@
 package org.jscep.transaction;
 
-import static org.slf4j.LoggerFactory.getLogger;
-
-import java.io.IOException;
-import java.security.spec.InvalidKeySpecException;
-
-import org.bouncycastle.cms.CMSSignedData;
-import org.bouncycastle.pkcs.PKCS10CertificationRequest;
 import org.jscep.asn1.IssuerAndSubject;
-import org.jscep.message.CertRep;
-import org.jscep.message.GetCertInitial;
-import org.jscep.message.MessageDecodingException;
-import org.jscep.message.MessageEncodingException;
-import org.jscep.message.PkcsReq;
-import org.jscep.message.PkiMessage;
-import org.jscep.message.PkiMessageDecoder;
-import org.jscep.message.PkiMessageEncoder;
-import org.jscep.message.PkiRequest;
-import org.jscep.transport.AbstractTransport;
+import org.jscep.message.*;
 import org.jscep.transport.Transport;
 import org.jscep.transport.request.PkiOperationRequest;
 import org.jscep.transport.response.PkiOperationResponseHandler;
 import org.jscep.util.CertificationRequestUtils;
 import org.slf4j.Logger;
+import org.spongycastle.cms.CMSSignedData;
+import org.spongycastle.pkcs.PKCS10CertificationRequest;
+
+import java.io.IOException;
+import java.security.spec.InvalidKeySpecException;
+
+import static org.slf4j.LoggerFactory.getLogger;
 
 /**
  * This class represents a SCEP enrollment <tt>Transaction</tt>.

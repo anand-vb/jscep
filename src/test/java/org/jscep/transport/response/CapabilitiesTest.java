@@ -1,9 +1,8 @@
 package org.jscep.transport.response;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.Matchers.nullValue;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
+import org.junit.Assert;
+import org.junit.Test;
+import org.spongycastle.jce.provider.BouncyCastleProvider;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -11,9 +10,10 @@ import java.security.Provider;
 import java.security.Security;
 import java.util.EnumSet;
 
-import org.bouncycastle.jce.provider.BouncyCastleProvider;
-import org.junit.Assert;
-import org.junit.Test;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.Matchers.nullValue;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 public class CapabilitiesTest {
     @Test
@@ -107,11 +107,11 @@ public class CapabilitiesTest {
         for (Capability enumValue : Capability.values()) {
             capsConstructorArg.add(enumValue);
         }
-        
+
         Capabilities caps = new Capabilities(capsConstructorArg.toArray(new Capability[capsConstructorArg.size()]));
         assertThat(caps.getStrongestMessageDigest().toString(), is(MessageDigest.getInstance("SHA-512").toString()));
         assertThat(caps.getStrongestSignatureAlgorithm(), is("SHA512withRSA"));
-        
+
         removeProviders();
         restoreProviders(providers);
     }

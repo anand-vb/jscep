@@ -1,20 +1,14 @@
 package org.jscep.transaction;
 
-import java.security.cert.CertStore;
-
-import org.bouncycastle.cms.CMSSignedData;
-import org.jscep.message.CertRep;
-import org.jscep.message.MessageDecodingException;
-import org.jscep.message.MessageEncodingException;
-import org.jscep.message.PkiMessage;
-import org.jscep.message.PkiMessageDecoder;
-import org.jscep.message.PkiMessageEncoder;
-import org.jscep.transport.AbstractTransport;
+import org.jscep.message.*;
 import org.jscep.transport.Transport;
 import org.jscep.transport.TransportException;
 import org.jscep.transport.request.Request;
 import org.jscep.transport.response.PkiOperationResponseHandler;
 import org.jscep.util.SignedDataUtils;
+import org.spongycastle.cms.CMSSignedData;
+
+import java.security.cert.CertStore;
 
 /**
  * This class represents an abstract SCEP transaction.

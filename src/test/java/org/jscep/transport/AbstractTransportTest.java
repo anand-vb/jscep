@@ -1,19 +1,6 @@
 package org.jscep.transport;
 
-import java.math.BigInteger;
-import java.net.Proxy;
-import java.net.URL;
-import java.security.GeneralSecurityException;
-import java.security.KeyPair;
-import java.security.KeyPairGenerator;
-import java.security.cert.X509Certificate;
-
-import javax.security.auth.x500.X500Principal;
-
 import junit.framework.Assert;
-
-import org.bouncycastle.asn1.cms.IssuerAndSerialNumber;
-import org.bouncycastle.asn1.x500.X500Name;
 import org.eclipse.jetty.server.Server;
 import org.jscep.message.GetCert;
 import org.jscep.message.PkcsPkiEnvelopeEncoder;
@@ -26,6 +13,17 @@ import org.jscep.util.X509Certificates;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.spongycastle.asn1.cms.IssuerAndSerialNumber;
+import org.spongycastle.asn1.x500.X500Name;
+
+import javax.security.auth.x500.X500Principal;
+import java.math.BigInteger;
+import java.net.Proxy;
+import java.net.URL;
+import java.security.GeneralSecurityException;
+import java.security.KeyPair;
+import java.security.KeyPairGenerator;
+import java.security.cert.X509Certificate;
 
 abstract public class AbstractTransportTest {
     protected URL url;

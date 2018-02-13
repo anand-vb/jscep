@@ -22,31 +22,7 @@
  */
 package org.jscep.client;
 
-import java.io.IOException;
-import java.math.BigInteger;
-import java.net.URL;
-import java.security.MessageDigest;
-import java.security.PrivateKey;
-import java.security.SignatureException;
-import java.security.cert.*;
-import java.util.Collection;
-
-import javax.security.auth.callback.Callback;
-import javax.security.auth.callback.CallbackHandler;
-import javax.security.auth.callback.UnsupportedCallbackException;
-import javax.security.auth.x500.X500Principal;
-
 import org.apache.commons.codec.binary.Hex;
-import org.bouncycastle.asn1.cms.IssuerAndSerialNumber;
-import org.bouncycastle.asn1.x500.X500Name;
-import org.bouncycastle.asn1.x509.X509Extension;
-import org.bouncycastle.cert.CertException;
-import org.bouncycastle.cert.jcajce.JcaX509CertificateHolder;
-import org.bouncycastle.operator.ContentVerifierProvider;
-import org.bouncycastle.operator.OperatorCreationException;
-import org.bouncycastle.operator.RuntimeOperatorException;
-import org.bouncycastle.operator.jcajce.JcaContentVerifierProviderBuilder;
-import org.bouncycastle.pkcs.PKCS10CertificationRequest;
 import org.jscep.asn1.IssuerAndSubject;
 import org.jscep.client.inspect.CertStoreInspector;
 import org.jscep.client.inspect.CertStoreInspectorFactory;
@@ -56,14 +32,8 @@ import org.jscep.message.PkcsPkiEnvelopeDecoder;
 import org.jscep.message.PkcsPkiEnvelopeEncoder;
 import org.jscep.message.PkiMessageDecoder;
 import org.jscep.message.PkiMessageEncoder;
-import org.jscep.transaction.EnrollmentTransaction;
-import org.jscep.transaction.MessageType;
-import org.jscep.transaction.NonEnrollmentTransaction;
-import org.jscep.transaction.OperationFailureException;
-import org.jscep.transaction.Transaction;
+import org.jscep.transaction.*;
 import org.jscep.transaction.Transaction.State;
-import org.jscep.transaction.TransactionException;
-import org.jscep.transaction.TransactionId;
 import org.jscep.transport.Transport;
 import org.jscep.transport.TransportException;
 import org.jscep.transport.TransportFactory;
@@ -79,6 +49,29 @@ import org.jscep.transport.response.GetNextCaCertResponseHandler;
 import org.jscep.util.X500Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.spongycastle.asn1.cms.IssuerAndSerialNumber;
+import org.spongycastle.asn1.x500.X500Name;
+import org.spongycastle.asn1.x509.X509Extension;
+import org.spongycastle.cert.CertException;
+import org.spongycastle.cert.jcajce.JcaX509CertificateHolder;
+import org.spongycastle.operator.ContentVerifierProvider;
+import org.spongycastle.operator.OperatorCreationException;
+import org.spongycastle.operator.RuntimeOperatorException;
+import org.spongycastle.operator.jcajce.JcaContentVerifierProviderBuilder;
+import org.spongycastle.pkcs.PKCS10CertificationRequest;
+
+import javax.security.auth.callback.Callback;
+import javax.security.auth.callback.CallbackHandler;
+import javax.security.auth.callback.UnsupportedCallbackException;
+import javax.security.auth.x500.X500Principal;
+import java.io.IOException;
+import java.math.BigInteger;
+import java.net.URL;
+import java.security.MessageDigest;
+import java.security.PrivateKey;
+import java.security.SignatureException;
+import java.security.cert.*;
+import java.util.Collection;
 
 /**
  * The <tt>Client</tt> class is used for interacting with a SCEP server.

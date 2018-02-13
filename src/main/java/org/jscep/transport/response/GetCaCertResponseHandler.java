@@ -1,21 +1,15 @@
 package org.jscep.transport.response;
 
+import net.jcip.annotations.ThreadSafe;
+import org.jscep.util.SignedDataUtils;
+import org.spongycastle.cms.CMSException;
+import org.spongycastle.cms.CMSSignedData;
+
 import java.io.ByteArrayInputStream;
 import java.security.GeneralSecurityException;
-import java.security.cert.CertStore;
-import java.security.cert.CertStoreParameters;
-import java.security.cert.CertificateException;
-import java.security.cert.CertificateFactory;
-import java.security.cert.CollectionCertStoreParameters;
-import java.security.cert.X509Certificate;
+import java.security.cert.*;
 import java.util.Collection;
 import java.util.Collections;
-
-import net.jcip.annotations.ThreadSafe;
-
-import org.bouncycastle.cms.CMSException;
-import org.bouncycastle.cms.CMSSignedData;
-import org.jscep.util.SignedDataUtils;
 
 /**
  * This class handles responses to <code>GetCACert</code> requests.

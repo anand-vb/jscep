@@ -22,12 +22,8 @@
  */
 package org.jscep.asn1;
 
-import org.bouncycastle.asn1.ASN1EncodableVector;
-import org.bouncycastle.asn1.ASN1Object;
-import org.bouncycastle.asn1.ASN1Primitive;
-import org.bouncycastle.asn1.ASN1Sequence;
-import org.bouncycastle.asn1.DERSequence;
-import org.bouncycastle.asn1.x500.X500Name;
+import org.spongycastle.asn1.*;
+import org.spongycastle.asn1.x500.X500Name;
 
 /**
  * This class represents the SCEP <code>IssuerAndSubject</code> ASN.1 object.

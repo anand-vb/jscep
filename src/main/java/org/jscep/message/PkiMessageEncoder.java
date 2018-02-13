@@ -21,38 +21,27 @@
  */
 package org.jscep.message;
 
+import org.jscep.transaction.PkiStatus;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.spongycastle.asn1.ASN1Object;
+import org.spongycastle.asn1.cms.AttributeTable;
+import org.spongycastle.cert.jcajce.JcaCertStore;
+import org.spongycastle.cms.*;
+import org.spongycastle.cms.jcajce.JcaSignerInfoGeneratorBuilder;
+import org.spongycastle.operator.ContentSigner;
+import org.spongycastle.operator.DigestCalculatorProvider;
+import org.spongycastle.operator.OperatorCreationException;
+import org.spongycastle.operator.jcajce.JcaContentSignerBuilder;
+import org.spongycastle.operator.jcajce.JcaDigestCalculatorProviderBuilder;
+import org.spongycastle.pkcs.PKCS10CertificationRequest;
+
 import java.io.IOException;
 import java.security.PrivateKey;
-import java.security.Provider;
 import java.security.cert.CertificateEncodingException;
 import java.security.cert.X509Certificate;
 import java.util.Collection;
 import java.util.LinkedList;
-
-import org.bouncycastle.asn1.ASN1Object;
-import org.bouncycastle.asn1.cms.AttributeTable;
-import org.bouncycastle.cert.jcajce.JcaCertStore;
-import org.bouncycastle.cms.CMSAbsentContent;
-import org.bouncycastle.cms.CMSAttributeTableGenerator;
-import org.bouncycastle.cms.CMSEnvelopedData;
-import org.bouncycastle.cms.CMSException;
-import org.bouncycastle.cms.CMSProcessable;
-import org.bouncycastle.cms.CMSProcessableByteArray;
-import org.bouncycastle.cms.CMSSignedData;
-import org.bouncycastle.cms.CMSSignedDataGenerator;
-import org.bouncycastle.cms.CMSTypedData;
-import org.bouncycastle.cms.DefaultSignedAttributeTableGenerator;
-import org.bouncycastle.cms.SignerInfoGenerator;
-import org.bouncycastle.cms.jcajce.JcaSignerInfoGeneratorBuilder;
-import org.bouncycastle.operator.ContentSigner;
-import org.bouncycastle.operator.DigestCalculatorProvider;
-import org.bouncycastle.operator.OperatorCreationException;
-import org.bouncycastle.operator.jcajce.JcaContentSignerBuilder;
-import org.bouncycastle.operator.jcajce.JcaDigestCalculatorProviderBuilder;
-import org.bouncycastle.pkcs.PKCS10CertificationRequest;
-import org.jscep.transaction.PkiStatus;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * This class is used to encode a <tt>pkiMessage</tt> into a PKCS #7 signedData

@@ -1,25 +1,23 @@
 package org.jscep.transport;
 
+import net.jcip.annotations.ThreadSafe;
+import org.apache.commons.io.Charsets;
+import org.apache.commons.io.IOUtils;
+import org.jscep.transport.request.PkiOperationRequest;
+import org.jscep.transport.request.Request;
+import org.jscep.transport.response.ScepResponseHandler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.spongycastle.util.encoders.Base64;
+
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLSocketFactory;
 import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
-
-import net.jcip.annotations.ThreadSafe;
-
-import org.apache.commons.io.Charsets;
-import org.apache.commons.io.IOUtils;
-import org.bouncycastle.util.encoders.Base64;
-import org.jscep.transport.request.PkiOperationRequest;
-import org.jscep.transport.request.Request;
-import org.jscep.transport.response.ScepResponseHandler;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLSocketFactory;
 
 /**
  * AbstractTransport representing the <code>HTTP POST</code> method.

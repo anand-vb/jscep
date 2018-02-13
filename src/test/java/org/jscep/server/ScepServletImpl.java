@@ -1,43 +1,5 @@
 package org.jscep.server;
 
-import java.math.BigInteger;
-import java.security.KeyPair;
-import java.security.KeyPairGenerator;
-import java.security.NoSuchAlgorithmException;
-import java.security.PrivateKey;
-import java.security.PublicKey;
-import java.security.cert.CertificateEncodingException;
-import java.security.cert.X509CRL;
-import java.security.cert.X509Certificate;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.Date;
-import java.util.EnumSet;
-import java.util.GregorianCalendar;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import java.util.Set;
-
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
-
-import org.bouncycastle.asn1.cms.IssuerAndSerialNumber;
-import org.bouncycastle.asn1.x500.X500Name;
-import org.bouncycastle.asn1.x509.BasicConstraints;
-import org.bouncycastle.asn1.x509.X509Extension;
-import org.bouncycastle.cert.X509CRLHolder;
-import org.bouncycastle.cert.X509CertificateHolder;
-import org.bouncycastle.cert.X509v2CRLBuilder;
-import org.bouncycastle.cert.jcajce.JcaX509CRLConverter;
-import org.bouncycastle.cert.jcajce.JcaX509CertificateConverter;
-import org.bouncycastle.cert.jcajce.JcaX509v3CertificateBuilder;
-import org.bouncycastle.operator.ContentSigner;
-import org.bouncycastle.operator.OperatorCreationException;
-import org.bouncycastle.operator.jcajce.JcaContentSignerBuilder;
-import org.bouncycastle.pkcs.PKCS10CertificationRequest;
 import org.jscep.transaction.FailInfo;
 import org.jscep.transaction.OperationFailureException;
 import org.jscep.transaction.TransactionId;
@@ -45,6 +7,29 @@ import org.jscep.transport.response.Capability;
 import org.jscep.util.CertificationRequestUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.spongycastle.asn1.cms.IssuerAndSerialNumber;
+import org.spongycastle.asn1.x500.X500Name;
+import org.spongycastle.asn1.x509.BasicConstraints;
+import org.spongycastle.asn1.x509.X509Extension;
+import org.spongycastle.cert.X509CRLHolder;
+import org.spongycastle.cert.X509CertificateHolder;
+import org.spongycastle.cert.X509v2CRLBuilder;
+import org.spongycastle.cert.jcajce.JcaX509CRLConverter;
+import org.spongycastle.cert.jcajce.JcaX509CertificateConverter;
+import org.spongycastle.cert.jcajce.JcaX509v3CertificateBuilder;
+import org.spongycastle.operator.ContentSigner;
+import org.spongycastle.operator.OperatorCreationException;
+import org.spongycastle.operator.jcajce.JcaContentSignerBuilder;
+import org.spongycastle.pkcs.PKCS10CertificationRequest;
+
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
+import java.math.BigInteger;
+import java.security.*;
+import java.security.cert.CertificateEncodingException;
+import java.security.cert.X509CRL;
+import java.security.cert.X509Certificate;
+import java.util.*;
 
 public class ScepServletImpl extends ScepServlet {
     /**

@@ -21,10 +21,10 @@
  */
 package org.jscep.message;
 
-import org.bouncycastle.pkcs.PKCS10CertificationRequest;
 import org.jscep.transaction.MessageType;
 import org.jscep.transaction.Nonce;
 import org.jscep.transaction.TransactionId;
+import org.spongycastle.pkcs.PKCS10CertificationRequest;
 
 /**
  * This class represents <tt>PKCSReq</tt> <tt>pkiMessage</tt>, which wraps a

@@ -1,13 +1,25 @@
 package org.jscep.client;
 
+import org.jscep.client.verification.OptimisticCertificateVerifier;
+import org.jscep.transport.response.Capabilities;
+import org.jscep.transport.response.Capability;
+import org.junit.Test;
+import org.spongycastle.asn1.DERPrintableString;
+import org.spongycastle.asn1.pkcs.PKCSObjectIdentifiers;
+import org.spongycastle.asn1.x500.X500Name;
+import org.spongycastle.asn1.x509.SubjectPublicKeyInfo;
+import org.spongycastle.cert.X509CertificateHolder;
+import org.spongycastle.cert.jcajce.JcaX509v3CertificateBuilder;
+import org.spongycastle.operator.ContentSigner;
+import org.spongycastle.operator.jcajce.JcaContentSignerBuilder;
+import org.spongycastle.pkcs.PKCS10CertificationRequest;
+import org.spongycastle.pkcs.PKCS10CertificationRequestBuilder;
+
+import javax.security.auth.x500.X500Principal;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.math.BigInteger;
-import java.security.KeyPair;
-import java.security.KeyPairGenerator;
-import java.security.KeyStore;
-import java.security.PublicKey;
-import java.security.SecureRandom;
+import java.security.*;
 import java.security.cert.CertStore;
 import java.security.cert.Certificate;
 import java.security.cert.CertificateFactory;
@@ -15,23 +27,6 @@ import java.security.cert.X509Certificate;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
-
-import javax.security.auth.x500.X500Principal;
-
-import org.bouncycastle.asn1.DERPrintableString;
-import org.bouncycastle.asn1.pkcs.PKCSObjectIdentifiers;
-import org.bouncycastle.asn1.x500.X500Name;
-import org.bouncycastle.asn1.x509.SubjectPublicKeyInfo;
-import org.bouncycastle.cert.X509CertificateHolder;
-import org.bouncycastle.cert.jcajce.JcaX509v3CertificateBuilder;
-import org.bouncycastle.operator.ContentSigner;
-import org.bouncycastle.operator.jcajce.JcaContentSignerBuilder;
-import org.bouncycastle.pkcs.PKCS10CertificationRequest;
-import org.bouncycastle.pkcs.PKCS10CertificationRequestBuilder;
-import org.jscep.client.verification.OptimisticCertificateVerifier;
-import org.jscep.transport.response.Capabilities;
-import org.jscep.transport.response.Capability;
-import org.junit.Test;
 
 /**
  * This isn't really a test, but it shows how to use the API.
