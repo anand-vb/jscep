@@ -1,17 +1,10 @@
 package org.jscep.client.inspect;
 
-import java.security.cert.CertSelector;
-import java.security.cert.CertStore;
-import java.security.cert.CertStoreException;
-import java.security.cert.Certificate;
-import java.security.cert.X509CertSelector;
-import java.security.cert.X509Certificate;
-import java.util.Collection;
-
-import javax.security.auth.x500.X500Principal;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.security.cert.*;
+import java.util.Collection;
 
 public abstract class AbstractCertStoreInspector implements CertStoreInspector {
 	/**
@@ -72,12 +65,12 @@ public abstract class AbstractCertStoreInspector implements CertStoreInspector {
 	X509Certificate selectCertificate(final CertStore store,
 			final Collection<X509CertSelector> selectors) throws CertStoreException {
 		for (CertSelector selector : selectors) {
-			LOGGER.debug("Selecting certificate using {}", selector);
+//			LOGGER.debug("Selecting certificate using {}", selector);
 			Collection<? extends Certificate> certs = store
 					.getCertificates(selector);
 			if (certs.size() > 0) {
-				LOGGER.debug("Selected {} certificate(s) using {}",
-						certs.size(), selector);
+//				LOGGER.debug("Selected {} certificate(s) using {}",
+//						certs.size(), selector);
 				return (X509Certificate) certs.iterator().next();
 			} else {
 				LOGGER.debug("No certificates selected");
