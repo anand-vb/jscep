@@ -72,6 +72,8 @@ import java.security.PrivateKey;
 import java.security.SignatureException;
 import java.security.cert.*;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * The <tt>Client</tt> class is used for interacting with a SCEP server.
@@ -117,6 +119,12 @@ public final class Client {
     private CertStoreInspectorFactory inspectorFactory = new DefaultCertStoreInspectorFactory();
     private TransportFactory transportFactory = new UrlConnectionTransportFactory();
 
+    //Used to cache the capabilities of the CA to avoid multiple network call
+    private Map<String, Capabilities> capabilitiesMap = new HashMap();
+    //Used to cache the CA cert to avoid multiple network call
+    private Map<String, CertStore> caCertMap = new HashMap();
+
+
     /**
      * Constructs a new <tt>Client</tt> instance using the provided
      * <tt>CallbackHandler</tt> for the provided URL.
@@ -142,7 +150,7 @@ public final class Client {
     /**
      * Constructs a new <tt>Client</tt> instance using the provided
      * <tt>CertificateVerifier</tt> for the provided URL.
-     * 
+     *
      * The provided <tt>CertificateVerifier</tt> is used to verify that the
      * identity of the SCEP server matches what the client expects.
      *
@@ -206,16 +214,26 @@ public final class Client {
      * @return the capabilities of the server.
      */
     public Capabilities getCaCapabilities(final String profile) {
+        String key = getKeyFromProfileName(profile);
+        if (capabilitiesMap.containsKey(key)) {
+            return capabilitiesMap.get(key);
+        }
         LOGGER.debug("Determining capabilities of SCEP server");
         // NON-TRANSACTIONAL
         final GetCaCapsRequest req = new GetCaCapsRequest(profile);
         final Transport trans = transportFactory.forMethod(Method.GET, url);
         try {
-            return trans.sendRequest(req, new GetCaCapsResponseHandler());
+            Capabilities capabilities = trans.sendRequest(req, new GetCaCapsResponseHandler());
+            capabilitiesMap.put(key, capabilities);
+            return capabilities;
         } catch (TransportException e) {
             LOGGER.warn("AbstractTransport problem when determining capabilities.  Using empty capabilities.");
             return new Capabilities();
         }
+    }
+
+    private String getKeyFromProfileName(final String profile) {
+        return profile == null ? "defaultProfile" : profile + "-key";
     }
 
     /**
@@ -257,6 +275,10 @@ public final class Client {
     public CertStore getCaCertificate(final String profile)
             throws ClientException {
         LOGGER.debug("Retrieving current CA certificate");
+        String key = getKeyFromProfileName(profile);
+        if (caCertMap.containsKey(key)) {
+            return caCertMap.get(key);
+        }
         // NON-TRANSACTIONAL
         // CA and RA public key distribution
         final GetCaCertRequest req = new GetCaCertRequest(profile);
@@ -265,6 +287,7 @@ public final class Client {
         CertStore store;
         try {
             store = trans.sendRequest(req, new GetCaCertResponseHandler());
+            caCertMap.put(key, store);
         } catch (TransportException e) {
             throw new ClientException(e);
         }
