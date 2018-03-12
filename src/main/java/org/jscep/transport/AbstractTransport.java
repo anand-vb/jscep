@@ -1,13 +1,9 @@
 package org.jscep.transport;
 
+import org.jscep.transport.request.Operation;
+
 import java.net.MalformedURLException;
 import java.net.URL;
-
-import org.jscep.transport.request.Operation;
-import org.jscep.transport.request.Request;
-import org.jscep.transport.response.ScepResponseHandler;
-
-import javax.net.ssl.SSLSocketFactory;
 
 /**
  * This class represents an abstract transport method for sending a message to a
@@ -16,11 +12,13 @@ import javax.net.ssl.SSLSocketFactory;
 public abstract class AbstractTransport implements Transport {
     private final URL url;
 
+    protected final int connectionTimeOut = 15000;
+    protected final int readTimeOut = 20000;
+
     /**
      * Creates a new <tt>AbstractTransport</tt> for the given URL.
-     * 
-     * @param url
-     *            the <tt>URL</tt> used for sending requests.
+     *
+     * @param url the <tt>URL</tt> used for sending requests.
      */
     public AbstractTransport(final URL url) {
         this.url = url;
@@ -28,12 +26,10 @@ public abstract class AbstractTransport implements Transport {
 
     /**
      * Returns the <tt>URL</tt> for the given operation.
-     * 
-     * @param op
-     *            the operation.
+     *
+     * @param op the operation.
      * @return the <tt>URL</tt> for the given operation.
-     * @throws TransportException
-     *             if the generated <tt>URL</tt> is malformed.
+     * @throws TransportException if the generated <tt>URL</tt> is malformed.
      */
     public final URL getUrl(final Operation op) throws TransportException {
         try {
@@ -45,9 +41,8 @@ public abstract class AbstractTransport implements Transport {
 
     /**
      * Converts the given object varargs to an object array.
-     * 
-     * @param objects
-     *            the objects to convert.
+     *
+     * @param objects the objects to convert.
      * @return the object array.
      */
     protected final Object[] varargs(final Object... objects) {

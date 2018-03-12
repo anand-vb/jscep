@@ -69,6 +69,8 @@ final class UrlConnectionPostTransport extends AbstractTransport {
         HttpURLConnection conn;
         try {
             conn = (HttpURLConnection) url.openConnection();
+            conn.setConnectTimeout(connectionTimeOut);
+            conn.setReadTimeout(readTimeOut);
             conn.setRequestMethod("POST");
             conn.setRequestProperty("Content-Type", "application/octet-stream");
             if(conn instanceof HttpsURLConnection && sslSocketFactory != null){

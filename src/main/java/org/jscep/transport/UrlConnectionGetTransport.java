@@ -1,14 +1,6 @@
 package org.jscep.transport;
 
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLEncoder;
-
 import net.jcip.annotations.ThreadSafe;
-
 import org.apache.commons.io.IOUtils;
 import org.jscep.transport.request.Operation;
 import org.jscep.transport.request.Request;
@@ -18,6 +10,12 @@ import org.slf4j.LoggerFactory;
 
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLSocketFactory;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLEncoder;
 
 /**
  * AbstractTransport representing the <code>HTTP GET</code> method
@@ -66,6 +64,8 @@ final class UrlConnectionGetTransport extends AbstractTransport {
         HttpURLConnection conn;
         try {
             conn = (HttpURLConnection) url.openConnection();
+            conn.setConnectTimeout(connectionTimeOut);
+            conn.setReadTimeout(readTimeOut);
             if(conn instanceof HttpsURLConnection && sslSocketFactory != null){
                 ((HttpsURLConnection) conn).setSSLSocketFactory(sslSocketFactory);
             }
